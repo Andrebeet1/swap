@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: swap-sim-app
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
+      - fromDatabase:
+          name: swap-sim-db
+          property: connectionString
+          envVarKey: DATABASE_URL
+databases:
+  - name: swap-sim-db
