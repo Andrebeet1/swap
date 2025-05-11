@@ -6,7 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'your-secret-key'
 DEBUG = True
-ALLOWED_HOSTS = ['https://swap-sim-app.onrender.com']
+ALLOWED_HOSTS = ['*', 'swap-sim-app.onrender.com']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
