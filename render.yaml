@@ -1,14 +1,24 @@
 services:
-  - type: web
-    name: swap-sim-app
-    runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn config.wsgi:application"
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: config.settings
-      - key: DATABASE_URL
-        value: postgresql://projet_eglise_db_user:r0vKQShenn6HN1zl4vUBPRL81AMGGSeZ@dpg-d0688j2li9vc73e3m4ng-a/projet_eglise_db
+
+type: web
+name: swap-sim-app
+runtime: python
+buildCommand: |
+pip install -r requirements.txt
+python manage.py collectstatic --noinput
+python manage.py migrate
+startCommand: gunicorn config.wsgi:application
+envVars:
+
+key: DJANGO_SETTINGS_MODULE
+value: config.settings
+
+key: DATABASE_URL
+value: postgresql://projet_eglise_db_user:r0vKQShenn6HN1zl4vUBPRL81AMGGSeZ@dpg-d0688j2li9vc73e3m4ng-a/projet_eglise_db
+
+key: PYTHONUNBUFFERED
+value: "1"
 
 databases:
-  - name: swap-sim-db
+
+name: swap-sim-db
