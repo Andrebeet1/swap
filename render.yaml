@@ -7,9 +7,8 @@ services:
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
-      - fromDatabase:
-          name: swap-sim-db
-          property: connectionString
-          envVarKey: DATABASE_URL
+      - key: DATABASE_URL
+        value: postgresql://projet_eglise_db_user:r0vKQShenn6HN1zl4vUBPRL81AMGGSeZ@dpg-d0688j2li9vc73e3m4ng-a/projet_eglise_db
+
 databases:
   - name: swap-sim-db
