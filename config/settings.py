@@ -48,11 +48,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Base de données PostgreSQL Render
 DATABASES = {
-    'default': dj_database_url.parse(
-        'postgresql://projet_eglise_db_user:r0vKQShenn6HN1zl4vUBPRL81AMGGSeZ@dpg-d0688j2li9vc73e3m4ng-a/projet_eglise_db',
-        conn_max_age=600,
-        ssl_require=True
-    )
+'default': dj_database_url.config(
+default=os.environ.get('DATABASE_URL'),
+conn_max_age=600,
+ssl_require=True
+)
 }
 
 AUTH_PASSWORD_VALIDATORS = []
@@ -63,7 +63,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'core/static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
