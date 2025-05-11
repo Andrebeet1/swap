@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 SECRET_KEY = 'your-secret-key'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
@@ -27,6 +29,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [BASE_DIR / 'core/templates'],
@@ -40,20 +43,20 @@ TEMPLATES = [{
         ],
     },
 }]
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Base de données PostgreSQL Render
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'render_db'),
-        'USER': os.getenv('DB_USER', 'render_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'render_password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.parse(
+        'postgresql://projet_eglise_db_user:r0vKQShenn6HN1zl4vUBPRL81AMGGSeZ@dpg-d0688j2li9vc73e3m4ng-a/projet_eglise_db',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = []
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -61,6 +64,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'core/static']
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
